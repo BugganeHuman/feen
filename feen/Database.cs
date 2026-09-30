@@ -11,7 +11,7 @@ public static class Database
         return connection;
     }
 
-    public static void Start ()
+    public static void Start()
     {
         using var connection = OpenConnection();
         using var cmd = connection.CreateCommand();
@@ -38,7 +38,7 @@ public static class Database
         cmd.ExecuteNonQuery();
     }
 
-    public static List<Record> GetAllRecords ()
+    public static List<Record> GetAllRecords()
     {
         using var connection = OpenConnection();
         using var cmd = connection.CreateCommand();
