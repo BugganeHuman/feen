@@ -2,7 +2,7 @@
 
 using Microsoft.Data.Sqlite;
 
-public class Database
+public static class Database
 {
     private static SqliteConnection OpenConnection ()
     {

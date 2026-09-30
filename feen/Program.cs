@@ -26,7 +26,7 @@ while (true)
         foreach (Record record in records)
         {
             table.AddRow(record.id.ToString(), record.created_at,
-                         record.amount.ToString(), record.note);
+                         record.amount.ToString(), Markup.Escape(record.note));
         }
         AnsiConsole.Write(table);
     }
