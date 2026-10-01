@@ -83,10 +83,8 @@ while (true)
             else if (choice_action == "Delete Record")
             {
                 int id = AnsiConsole.Ask<int>("id of record: ");
-                string isSure = AnsiConsole.Ask<string>("\nAre you sure?\n" +
-                                                        "Write yes to delete\n" +
-                                                        "Or no to get back: ");
-                if (isSure == "yes".ToLower())
+                bool isSure = AnsiConsole.Confirm("Are you sure?", false);
+                if (isSure)
                 {
                     Database.DeleteRecord(id);
                     AnsiConsole.MarkupLine("\n[green]DONE[/]\n");
@@ -99,6 +97,4 @@ while (true)
 
         }
     }
-
-
 }
