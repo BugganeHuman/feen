@@ -1,6 +1,7 @@
 ﻿namespace feen;
 
 using Microsoft.Data.Sqlite;
+using System.Globalization;
 
 public static class Database
 {
@@ -57,5 +58,32 @@ public static class Database
                 ));
         }
         return records;
+    }
+
+    public static void DeleteRecord(int id)
+    {
+        using var connection = OpenConnection();
+        using var cmd = connection.CreateCommand();
+        cmd.CommandText = """
+            DELETE FROM records WHERE id = $id
+            """;
+        cmd.Parameters.AddWithValue("$id", id);
+        cmd.ExecuteNonQuery();
+    }
+
+    public static void UpdateRecord(int id, int? amount = null, string? note = null)
+    {
+        using var connection = OpenConnection();
+        using var cmd = connection.CreateCommand();
+        cmd.CommandText = """
+            UPDATE records SET 
+            amount = COALESCE($amount, amount), 
+            note = COALESCE($note, note) 
+            WHERE id = $id
+            """;
+        cmd.Parameters.AddWithValue("$amount", (object?)amount ?? DBNull.Value);
+        cmd.Parameters.AddWithValue("$note", (object?)note ?? DBNull.Value);
+        cmd.Parameters.AddWithValue("$id", id);
+        cmd.ExecuteNonQuery();
     }
 }
